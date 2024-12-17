@@ -52,14 +52,14 @@ const FormExpander = styled(UnstyledFormExpander)`
 	}
 
 	.title {
-		color:${props=>props.theme.bckgColor};
-		margin:0;
+		color: ${props => props.theme.bckgColor};
+		margin: 0;
 		cursor: pointer;
 	}
 
 	.title-closed::before,
 	.title-expanded::before {
-		padding-right:.8rem;
+		padding-right: 0.8rem;
 	}
 
 	.formContainer {
@@ -83,7 +83,7 @@ const FormExpander = styled(UnstyledFormExpander)`
 		transition: max-height 0.5s cubic-bezier(0.5, 0.5, 0, 0.7);
 	}
 	.formExpanded {
-		max-height:500px;
+		max-height: 500px;
 		transition: max-height 0.5s cubic-bezier(0.7, 0, 0.5, 0.5);
 		animation-name: toggle;
 		animation-fill-mode: forwards;

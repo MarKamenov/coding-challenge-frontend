@@ -1,13 +1,13 @@
 import * as React from 'react';
-import styled  from 'styled-components';
+import styled from 'styled-components';
 import { Box, Flex } from 'grid-styled';
-import * as arrow from '../assets/arrow-icon.png'
+import * as arrow from '../assets/arrow-icon.png';
 
 export interface IAccordionProps {
 	children?: any;
 	className?: string;
 	initOpen?: boolean;
-	title?:string;
+	title?: string;
 }
 
 export interface IAccordionState {
@@ -28,16 +28,18 @@ class UnstyledAccordion extends React.PureComponent<IAccordionProps, IAccordionS
 		const { children, className, title, initOpen, ...rest } = this.props;
 		const { open } = this.state;
 		return (
-			<Box {...rest} className={className} >
-				<Flex p={3} 
-					className='click-title'
-					justifyContent='space-between' 
-					alignItems='center'  
-					onClick={this.toggleOpen}>
-				<Box className='accordion-title'>{title}</Box>
-				<Box>
-					<img className={open ? 'open' : ''} role="img" src={arrow} alt="arrow icon"/>
-				</Box>
+			<Box {...rest} className={className}>
+				<Flex
+					p={3}
+					className="click-title"
+					justifyContent="space-between"
+					alignItems="center"
+					onClick={this.toggleOpen}
+				>
+					<Box className="accordion-title">{title}</Box>
+					<Box>
+						<img className={open ? 'open' : ''} role="img" src={arrow} alt="arrow icon" />
+					</Box>
 				</Flex>
 				<Box className={`accordionContent ${open ? 'accordionOpen' : 'accordionClosed'}`}>
 					<Box className={'accordionChildrenContainer'}>{children}</Box>
@@ -50,14 +52,14 @@ class UnstyledAccordion extends React.PureComponent<IAccordionProps, IAccordionS
 const Accordion = styled(UnstyledAccordion)`
 	overflow: hidden;
 	img {
-		width:15px;
-		height:15px;
+		width: 15px;
+		height: 15px;
 		transition: transform 0.4s;
 		transform: rotate(-90deg);
 	}
 	.open {
-			transform: rotate(0deg);
-		}
+		transform: rotate(0deg);
+	}
 
 	.click-title {
 		cursor: pointer;
@@ -66,10 +68,10 @@ const Accordion = styled(UnstyledAccordion)`
 	.accordionContent {
 		overflow: hidden;
 	}
-.accordion-title {
-	font-size:1.2rem;
-	font-weight:bold;
-}
+	.accordion-title {
+		font-size: 1.2rem;
+		font-weight: bold;
+	}
 	.accordionClosed {
 		max-height: 0;
 		transition: max-height 0.5s cubic-bezier(0.5, 0.5, 0, 0.7);

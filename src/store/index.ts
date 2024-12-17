@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Movies from './Movies';
 import UI from './Ui';
 

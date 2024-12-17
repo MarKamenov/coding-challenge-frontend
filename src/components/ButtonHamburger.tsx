@@ -9,17 +9,17 @@ export interface ICleanButtonProps {
 
 const HamburgerButton: React.SFC<ButtonHTMLAttributes<ICleanButtonProps>> = ({ className, ...rest }) => (
 	<button className={className} {...rest}>
-			<HamburgerMenu color='#001e2d' />
+		<HamburgerMenu color="#001e2d" />
 	</button>
 );
 
 export default styled(HamburgerButton)`
-	padding-top: 2px;;
+	padding-top: 2px;
 	margin: 0;
 	background: none;
 	border: none;
 	font: inherit;
 	color: inherit;
 	cursor: pointer;
-	outline:none;
+	outline: none;
 `;
