@@ -66,7 +66,7 @@ class UnstyledApp extends React.Component<IAppProps> {
 					<Box className="app-content">
 						<Flex className="main-wrapper" p={5}>
 							<Box mr="1rem" className="middle">
-								{list.length ? (
+								{list.length > 0 ? (
 									<Box className="movies-wrapper">
 										<span className="total">{total} movies</span>
 										{list && list.slice(0, 3).map((movie: any) => <MoviesList key={movie.id} movie={movie} />)}
