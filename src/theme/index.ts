@@ -9,6 +9,9 @@ export const theme = {
 	textHighLightColor: appColors[1],
 	bckgGreyColor: appColors[2],
 	radius: '5px',
+	breakpoints: {
+		tablet: '768px',
+	},
 };
 
 export { css, keyframes, ThemeProvider };

@@ -6,30 +6,19 @@ import Movies from './store/Movies';
 import UI from './store/Ui';
 import LeftMenu from './components/LeftMenu';
 import LeftMenuMob from './components/LeftMenuMob';
-import MoviesList from './components/MoviesList';
 import RightMenu from './components/RightMenu';
 import StyledCheckbox from './components/CheckBoxFields';
 import FormExpander from './components/FormExpander';
 import HamburgerButton from './components/ButtonHamburger';
+import MovieListSection from './components/MovieListSection';
+import { MOVIE_GENRES } from 'src/constants';
 
 interface IAppProps {
 	className?: string;
+	movies?: Movies; // Add injected props to the interface
+	ui?: UI;
 }
 
-const genres = [
-	'Action',
-	'Adventure',
-	'Animation',
-	'Comedy',
-	'Crime film',
-	'Documentary',
-	'Drama',
-	'Erotic',
-	'Family',
-	'Fanatasy',
-	'History',
-	'Horror',
-];
 @inject('movies', 'ui')
 @observer
 class UnstyledApp extends React.Component<IAppProps> {
@@ -37,19 +26,13 @@ class UnstyledApp extends React.Component<IAppProps> {
 		super(props);
 	}
 
-	get injected() {
-		return this.props as {
-			movies: Movies;
-			ui: UI;
-		};
-	}
-
 	public render() {
-		const { list, total } = this.injected.movies;
-		const { toggle, toggleMenu } = this.injected.ui;
+		const { movies, ui, className } = this.props;
+		const { list, total } = movies as Movies;
+		const { toggle, toggleMenu } = ui as UI;
 		const show = toggleMenu && window.innerWidth < 768;
 		return (
-			<Flex width={1} flexDirection="column" className={this.props.className}>
+			<Flex width={1} flexDirection="column" className={className}>
 				<Flex flex={1} className="content-wrapper">
 					<Box className="menu-items">
 						<Flex className="menu-wrapper" mb={2} pt="3rem" pl="55px">
@@ -66,22 +49,13 @@ class UnstyledApp extends React.Component<IAppProps> {
 					<Box className="app-content">
 						<Flex className="main-wrapper" p={5}>
 							<Box mr="1rem" className="middle">
-								{list.length > 0 ? (
-									<Box className="movies-wrapper">
-										<span className="total">{total} movies</span>
-										{list && list.slice(0, 3).map((movie: any) => <MoviesList key={movie.id} movie={movie} />)}
-									</Box>
-								) : (
-									<Flex pt="5rem" justifyContent="center" width={1}>
-										<b>No movies</b>
-									</Flex>
-								)}
+								<MovieListSection list={list} total={total} />
 							</Box>
 							<Box className="right">
 								<RightMenu />
 								<Box p={2} className="expander-box">
 									<FormExpander initOpen={true} title="Select genre(s)">
-										{genres.map((g, i) => <StyledCheckbox key={`${g}${i}`} label={g} />)}
+										{MOVIE_GENRES.map((g, i) => <StyledCheckbox key={`${g}${i}`} label={g} />)}
 									</FormExpander>
 									<FormExpander title="Select min. vote" />
 									<FormExpander title="Select language" />
@@ -108,7 +82,7 @@ const App = styled(UnstyledApp)`
 	.content-wrapper {
 		display: flex;
 		flex-direction: column;
-		@media (min-width: 768px) {
+		@media (min-width: ${props => props.theme.breakpoints.tablet}) {
 			flex-direction: row;
 		}
 	}
@@ -117,7 +91,7 @@ const App = styled(UnstyledApp)`
 		min-height: 97vh;
 		justify-content: flex-end;
 		flex-direction: column-reverse;
-		@media (min-width: 768px) {
+		@media (min-width: ${props => props.theme.breakpoints.tablet}) {
 			flex-direction: row;
 		}
 	}
@@ -127,7 +101,7 @@ const App = styled(UnstyledApp)`
 			width: 35px;
 			height: 25px;
 		}
-		@media (min-width: 768px) {
+		@media (min-width: ${props => props.theme.breakpoints.tablet}) {
 			display: none;
 		}
 	}
@@ -135,7 +109,7 @@ const App = styled(UnstyledApp)`
 	.middle {
 		margin-right: 0;
 		margin-top: 3rem;
-		@media (min-width: 768px) {
+		@media (min-width: ${props => props.theme.breakpoints.tablet}) {
 			margin-right: 1rem;
 			margin-top: 0;
 			flex-grow: 1;
@@ -150,13 +124,9 @@ const App = styled(UnstyledApp)`
 		background-color: ${props => props.theme.bckgGreyColor};
 	}
 
-	.movies-wrapper {
-		position: relative;
-	}
-
 	.expander-box {
 		display: none;
-		@media (min-width: 768px) {
+		@media (min-width: ${props => props.theme.breakpoints.tablet}) {
 			background-color: white;
 			display: block;
 		}
