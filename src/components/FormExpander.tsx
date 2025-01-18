@@ -33,10 +33,18 @@ class UnstyledFormExpander extends React.PureComponent<IFormProps, IFormState> {
 		const formClasses = ['formContent', { formExpanded: open === true, formClosed: open === false }];
 		return (
 			<Flex flexDirection="column" {...rest} className={classNames(parentClasses)}>
-				<h4 onClick={this.toggleOpen} className={classNames(titleClasses)}>
+				<h4
+					onClick={this.toggleOpen}
+					onKeyPress={e => e.key === 'Enter' && this.toggleOpen()}
+					className={classNames(titleClasses)}
+					role="button"
+					tabIndex={0}
+					aria-expanded={open}
+					aria-controls="form-content"
+				>
 					{title}
 				</h4>
-				<Box className={classNames(formClasses)}>
+				<Box id="form-content" className={classNames(formClasses)} aria-hidden={!open}>
 					<Box className={'formContainer'}>{children}</Box>
 				</Box>
 			</Flex>

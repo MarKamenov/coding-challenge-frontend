@@ -13,9 +13,19 @@ export interface ICheckboxProps extends React.InputHTMLAttributes<any> {
 const UnstyledCheckbox = ({ disabled = false, checked, className, name, label, onChange, ...rest }: ICheckboxProps) => (
 	<label className={classNames(className, 'field')} {...rest}>
 		<Flex my={3} alignItems="center">
-			<input type="checkbox" {...{ disabled, checked, name, onChange }} />
-			<Box className="box" />
-			{label && <Box className="label">{label}</Box>}
+			<input
+				type="checkbox"
+				{...{ disabled, checked, name, onChange }}
+				aria-checked={checked}
+				aria-disabled={disabled}
+				aria-label={label}
+			/>
+			<Box className="box" aria-hidden="true" />
+			{label && (
+				<Box className="label" id={`${name}-label`}>
+					{label}
+				</Box>
+			)}
 		</Flex>
 	</label>
 );

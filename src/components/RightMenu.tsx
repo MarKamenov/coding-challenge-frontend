@@ -16,7 +16,7 @@ interface IRightMenuProps {
 @observer
 class UnstyledRightMenu extends React.Component<IRightMenuProps> {
 	@observable private queryText: string = '';
-	private disposables: IReactionDisposer[] = [];
+	private readonly disposables: IReactionDisposer[] = [];
 
 	get injected() {
 		return this.props as {
@@ -45,12 +45,12 @@ class UnstyledRightMenu extends React.Component<IRightMenuProps> {
 
 	public render() {
 		return (
-			<Box className={this.props.className}>
+			<Box className={this.props.className} role="search" aria-label="Movie search">
 				<Flex px={2} className="input-wrapper" flexDirection="column" flexWrap="wrap" mb={2}>
 					<Flex>
 						<Flex className="select" width={1} ml={2}>
 							<Box>
-								<img role="img" src={search} alt="search icon" />
+								<img src={search} alt="Search" aria-hidden="true" />
 							</Box>
 							<input
 								placeholder="Search movies"
@@ -58,18 +58,32 @@ class UnstyledRightMenu extends React.Component<IRightMenuProps> {
 								onChange={(e: any) => {
 									this.queryText = e.target.value;
 								}}
+								aria-label="Search movies"
+								role="searchbox"
 							/>
 						</Flex>
 						<Box ml={1} className="svg-wrapper">
-							<HamburgerMenu color="#d9e021" />
+							<button
+								aria-label="Toggle menu"
+								tabIndex={0}
+								style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+							>
+								<HamburgerMenu color="#d9e021" />
+							</button>
 						</Box>
 					</Flex>
 
 					<Box className="select second" width={1} ml={2}>
 						<span>
-							<img role="img" src={year} alt="calendar icon" />
+							<img src={year} alt="Calendar" aria-hidden="true" />
 						</span>
-						<input placeholder="Year of release" />
+						<input
+							placeholder="Year of release"
+							aria-label="Filter by year of release"
+							type="number"
+							min="1900"
+							max={new Date().getFullYear()}
+						/>
 					</Box>
 				</Flex>
 			</Box>

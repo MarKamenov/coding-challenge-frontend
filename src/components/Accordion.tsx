@@ -35,13 +35,25 @@ class UnstyledAccordion extends React.PureComponent<IAccordionProps, IAccordionS
 					justifyContent="space-between"
 					alignItems="center"
 					onClick={this.toggleOpen}
+					onKeyPress={e => e.key === 'Enter' && this.toggleOpen()}
+					role="button"
+					tabIndex={0}
+					aria-expanded={open}
+					aria-controls="accordion-content"
 				>
-					<Box className="accordion-title">{title}</Box>
+					<Box className="accordion-title" role="heading" aria-level={3}>
+						{title}
+					</Box>
 					<Box>
-						<img className={open ? 'open' : ''} role="img" src={arrow} alt="arrow icon" />
+						<img
+							className={open ? 'open' : ''}
+							src={arrow}
+							alt={open ? 'Collapse section' : 'Expand section'}
+							aria-hidden="true"
+						/>
 					</Box>
 				</Flex>
-				<Box className={`accordionContent ${open ? 'accordionOpen' : 'accordionClosed'}`}>
+				<Box aria-hidden={!open} className={`accordionContent ${open ? 'accordionOpen' : 'accordionClosed'}`}>
 					<Box className={'accordionChildrenContainer'}>{children}</Box>
 				</Box>
 			</Box>

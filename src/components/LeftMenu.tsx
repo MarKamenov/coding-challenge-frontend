@@ -9,35 +9,51 @@ export interface ILeftMenuProps {
 }
 
 class UnstyledLeftMenu extends React.Component<ILeftMenuProps> {
-	constructor(props: ILeftMenuProps) {
-		super(props);
-	}
-
 	public render() {
 		const { className } = this.props;
 
 		return (
-			<Flex flexDirection="column" className={className}>
+			<Flex flexDirection="column" className={className} role="navigation" aria-label="Main menu">
 				<Accordion initOpen={true} title="Wesley">
-					<Flex p={3} className="discover" alignItems="center" justifyContent="space-between">
+					<Flex
+						p={3}
+						className="discover"
+						alignItems="center"
+						justifyContent="space-between"
+						role="button"
+						tabIndex={0}
+						aria-label="Open discovery section"
+					>
 						<Box>Discover</Box>
 						<Box>
-							<img className="search-img" role="img" src={search} alt="search icon" />
+							<img className="search-img" src={search} alt="search icon" />
 						</Box>
 					</Flex>
 				</Accordion>
-				<Box className="main-titles" p={3}>
+				<Box className="main-titles" p={3} role="heading" aria-level={2}>
 					Watched
 				</Box>
-				<hr />
-				<Box p={3}>Movies</Box>
-				<Box p={3}>TV Shows</Box>
-				<Box className="main-titles" p={3}>
+				<hr aria-hidden="true" />
+				<nav aria-label="Watched content">
+					<Box p={3} role="link" tabIndex={0}>
+						Movies
+					</Box>
+					<Box p={3} role="link" tabIndex={0}>
+						TV Shows
+					</Box>
+				</nav>
+				<Box className="main-titles" p={3} role="heading" aria-level={2}>
 					Saved
 				</Box>
-				<hr />
-				<Box p={3}>Movies</Box>
-				<Box p={3}>TV Shows</Box>
+				<hr aria-hidden="true" />
+				<nav aria-label="Saved content">
+					<Box p={3} role="link" tabIndex={0}>
+						Movies
+					</Box>
+					<Box p={3} role="link" tabIndex={0}>
+						TV Shows
+					</Box>
+				</nav>
 			</Flex>
 		);
 	}
@@ -49,6 +65,7 @@ const LeftMenu = styled(UnstyledLeftMenu)`
 		display: flex;
 		background-color: ${props => props.theme.bckgColor};
 		color: white;
+		color: #ffffff;
 		flex-grow: 1;
 		overflow-y: auto;
 		overflow-x: hidden;

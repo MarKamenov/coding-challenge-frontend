@@ -13,19 +13,31 @@ const UnstyledMoviesList = (props: IMoviesItems) => {
 	const { movie, className } = props;
 
 	return (
-		<Flex p="1rem" mb={3} className={className}>
+		<Flex p="1rem" mb={3} className={className} role="article" aria-label={`Movie: ${movie.title}`}>
 			<Box mr={3}>
-				<img src={`${imgUrl}${movie.poster_path}`} />
+				<img src={`${imgUrl}${movie.poster_path}`} alt={`Movie poster for ${movie.title}`} />
 			</Box>
 			<Flex width={1} flexDirection="column" justifyContent="space-between">
 				<Flex width={1} justifyContent="space-between">
-					<Box className="card-title">{movie.title}</Box>
-					<Flex flexDirection="column" justifyContent="center" alignItems="center" className="vote">
+					<Box className="card-title" role="heading" aria-level={2}>
+						{movie.title}
+					</Box>
+					<Flex
+						flexDirection="column"
+						justifyContent="center"
+						alignItems="center"
+						className="vote"
+						aria-label={`Rating: ${movie.vote_average} out of 10`}
+					>
 						{movie.vote_average}
 					</Flex>
 				</Flex>
-				<Box className="overview">{movie.overview}</Box>
-				<Box className="release">{movie.release_date}</Box>
+				<Box className="overview" aria-label="Movie overview">
+					{movie.overview}
+				</Box>
+				<Box className="release" aria-label="Release date">
+					{movie.release_date}
+				</Box>
 			</Flex>
 		</Flex>
 	);

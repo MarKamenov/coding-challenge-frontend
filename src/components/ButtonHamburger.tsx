@@ -8,8 +8,8 @@ export interface ICleanButtonProps {
 }
 
 const HamburgerButton: React.SFC<ButtonHTMLAttributes<ICleanButtonProps>> = ({ className, ...rest }) => (
-	<button className={className} {...rest}>
-		<HamburgerMenu color="#001e2d" />
+	<button className={className} {...rest} aria-label="Toggle menu" aria-expanded={false} aria-controls="mobile-menu">
+		<HamburgerMenu color="#001e2d" aria-hidden="true" />
 	</button>
 );
 

@@ -6,12 +6,20 @@ import { IMovieResponse } from 'src/types';
 
 const UnstyledMovieListSection: React.FC<{ list: IMovieResponse[]; total: number }> = ({ list, total }) =>
 	list.length > 0 ? (
-		<Box className="movies-wrapper">
-			<span className="total">{total} movies</span>
-			{list.slice(0, 3).map(movie => <MoviesList key={movie.id} movie={movie} />)}
+		<Box className="movies-wrapper" role="region" aria-label="Movie list section">
+			<span className="total" aria-live="polite">
+				{total} movies
+			</span>
+			<div role="list">
+				{list.slice(0, 3).map(movie => (
+					<div role="listitem" key={movie.id}>
+						<MoviesList movie={movie} />
+					</div>
+				))}
+			</div>
 		</Box>
 	) : (
-		<Flex pt="5rem" justifyContent="center" width={1}>
+		<Flex pt="5rem" justifyContent="center" width={1} role="alert">
 			<b>No movies</b>
 		</Flex>
 	);

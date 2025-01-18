@@ -32,33 +32,40 @@ class UnstyledApp extends React.Component<IAppProps> {
 		const { toggle, toggleMenu } = ui as UI;
 		const show = toggleMenu && window.innerWidth < 768;
 		return (
-			<Flex width={1} flexDirection="column" className={className}>
+			<Flex width={1} flexDirection="column" className={className} role="main">
 				<Flex flex={1} className="content-wrapper">
-					<Box className="menu-items">
+					<Box className="menu-items" role="navigation" aria-label="Main menu">
 						<Flex className="menu-wrapper" mb={2} pt="3rem" pl="55px">
-							<HamburgerButton onClick={() => toggle()} />
+							<HamburgerButton
+								onClick={() => toggle()}
+								aria-expanded={toggleMenu}
+								aria-controls="mobile-menu"
+								aria-label="Toggle mobile menu"
+							/>
 							<h1>Discover</h1>
 						</Flex>
 						<LeftMenu />
 						{show && (
-							<Flex p={5} pb={0}>
+							<Flex p={5} pb={0} id="mobile-menu">
 								<LeftMenuMob />
 							</Flex>
 						)}
 					</Box>
-					<Box className="app-content">
+					<Box className="app-content" role="main" aria-label="Movie content">
 						<Flex className="main-wrapper" p={5}>
 							<Box mr="1rem" className="middle">
 								<MovieListSection list={list} total={total} />
 							</Box>
-							<Box className="right">
+							<Box className="right" role="complementary" aria-label="Movie filters">
 								<RightMenu />
 								<Box p={2} className="expander-box">
 									<FormExpander initOpen={true} title="Select genre(s)">
-										{MOVIE_GENRES.map((g, i) => <StyledCheckbox key={`${g}${i}`} label={g} />)}
+										{MOVIE_GENRES.map((g, i) => (
+											<StyledCheckbox key={`${g}${i}`} label={g} aria-label={`Filter by ${g} genre`} />
+										))}
 									</FormExpander>
-									<FormExpander title="Select min. vote" />
-									<FormExpander title="Select language" />
+									<FormExpander title="Select min. vote" aria-label="Filter by minimum vote rating" />
+									<FormExpander title="Select language" aria-label="Filter by movie language" />
 								</Box>
 							</Box>
 						</Flex>

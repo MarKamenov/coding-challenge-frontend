@@ -9,35 +9,41 @@ export interface ILeftMenuMobProps {
 }
 
 class UnstyledLeftMenuMob extends React.Component<ILeftMenuMobProps> {
-	constructor(props: ILeftMenuMobProps) {
-		super(props);
-	}
-
 	public render() {
 		const { className } = this.props;
 
 		return (
-			<Flex flexDirection="column" className={className}>
-				<Accordion initOpen={true} title="Wesley">
+			<Flex flexDirection="column" className={className} role="navigation" aria-label="Mobile menu">
+				<Accordion initOpen={true} title="Wesley" aria-expanded={true}>
 					<Flex p={3} className="discover" alignItems="center" justifyContent="space-between">
-						<Box>Discover</Box>
+						<Box role="heading" aria-level={1}>
+							Discover
+						</Box>
 						<Box>
-							<img className="search-img" role="img" src={search} alt="search icon" />
+							<img className="search-img" src={search} alt="search icon" aria-label="Search movies and shows" />
 						</Box>
 					</Flex>
 				</Accordion>
-				<Box className="main-titles" p={3}>
+				<Box className="main-titles" p={3} role="heading" aria-level={2}>
 					Watched
 				</Box>
-				<hr />
-				<Box p={3}>Movies</Box>
-				<Box p={3}>TV Shows</Box>
-				<Box className="main-titles" p={3}>
+				<hr aria-hidden="true" />
+				<Box p={3} role="menuitem" tabIndex={0}>
+					Movies
+				</Box>
+				<Box p={3} role="menuitem" tabIndex={0}>
+					TV Shows
+				</Box>
+				<Box className="main-titles" p={3} role="heading" aria-level={2}>
 					Saved
 				</Box>
-				<hr />
-				<Box p={3}>Movies</Box>
-				<Box p={3}>TV Shows</Box>
+				<hr aria-hidden="true" />
+				<Box p={3} role="menuitem" tabIndex={0}>
+					Movies
+				</Box>
+				<Box p={3} role="menuitem" tabIndex={0}>
+					TV Shows
+				</Box>
 			</Flex>
 		);
 	}
